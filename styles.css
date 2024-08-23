@@ -1,0 +1,23 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #87CEEB; /* Cor do céu */
+}
+
+#gameArea {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #f0f0f0; /* Cor do chão */
+    overflow: hidden;
+}
+
+#monkey {
+    position: absolute;
+    bottom: 20px; /* Distância do chão */
+    width: 60px;
+    height: 60px;
+    background: url('https://www.creativefabrica.com/wp-content/uploads/2023/02/28/Cute-Hip-Hop-Monkey-Cartoon-3D-Render-62701609-1.png') no-repeat center center;
+    background-size: cover;
+}
