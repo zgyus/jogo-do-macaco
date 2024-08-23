@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo do Dino</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #f7f7f7;
+        }
+        canvas {
+            display: block;
+            background-color: #f7f7f7;
+        }
+        #dino {
+            position: absolute;
+            bottom: 0;
+            width: 50px;
+            height: 50px;
+            background: url('https://www.creativefabrica.com/wp-content/uploads/2023/02/28/Cute-Hip-Hop-Monkey-Cartoon-3D-Render-62701609-1.png') no-repeat center center;
+            background-size: cover;
+        }
+    </style>
+</head>
+<body>
+    <div id="dino"></div>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const dino = document.getElementById('dino');
+        let dinoX = 50;
+        let dinoY = canvas.height - 50;
+        let isJumping = false;
+        let jumpHeight = 0;
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ccc';
+            ctx.fillRect(0, canvas.height - 20, canvas.width, 20); // chão
+            dino.style.left = dinoX + 'px';
+            dino.style.bottom = dinoY + 'px';
+        }
+
+        function jump() {
+            if (!isJumping) {
+                isJumping = true;
+                let jumpInterval = setInterval(() => {
+                    if (jumpHeight >= 100) {
+                        clearInterval(jumpInterval);
+                        let fallInterval = setInterval(() => {
+                            if (jumpHeight <= 0) {
+                                clearInterval(fallInterval);
+                                isJumping = false;
+                            }
+                            jumpHeight -= 5;
+                            dinoY = canvas.height - 50 - jumpHeight;
+                            draw();
+                        }, 20);
+                    }
+                    jumpHeight += 5;
+                    dinoY = canvas.height - 50 - jumpHeight;
+                    draw();
+                }, 20);
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                jump();
+            }
+        });
+
+        draw();
+    </script>
+</body>
+</html>
